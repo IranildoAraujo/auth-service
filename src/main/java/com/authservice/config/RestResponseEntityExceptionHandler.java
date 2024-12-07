@@ -25,7 +25,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 	private static final String ERROR_HANDER_MESSAGE = "[ExceptionHandler] Sistema com erro";
 
-	private static final String MSG_ERROR_SERVER = "O servidor apresentou erro. Entre em contato com adminstrador do sistema.";
+	private static final String MSG_ERROR_SERVER = "O servidor apresentou erro. Entre em contato com administrador do sistema.";
 
 	private static final String MSG_ERROR_UNAUTHORIZED = "Não Autorizado.";
 
