@@ -14,8 +14,6 @@
 	<name>auth-service</name>
 	<description>Servidor de autenticação</description>
   <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
         <dozer.version>6.4.0</dozer.version>
         <springdoc.version>2.0.2</springdoc.version>
@@ -72,7 +70,6 @@
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
-        
         <dependency>
             <groupId>com.github.dozermapper</groupId>
             <artifactId>dozer-core</artifactId>
@@ -98,7 +95,6 @@
             <artifactId>mysql</artifactId>
             <scope>test</scope>
         </dependency>
-        
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -128,5 +124,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

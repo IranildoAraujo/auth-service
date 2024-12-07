@@ -21,6 +21,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.authservice.jwt.JwtTokenFilter;
 import com.authservice.jwt.JwtTokenProvider;
 
+import lombok.Generated;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j // Use Slf4j para logs (mais padrão)
+@Generated
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
