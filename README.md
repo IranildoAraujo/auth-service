@@ -25,7 +25,7 @@ Importar o projeto como um projeto Maven existente.
 ## Variáveis de ambiente
 
 - PROFILES_ACTIVE=dev
-- AUTH_SERVICE={Adicionar o nome do serviço}
+- APP_NAME={Adicionar o nome do serviço}
 - CONTEXT_PATH={Adicionar o caminho do context do servidor}
 - CORS_ORIGIN={Adicione a url terá acesso}
 - SECRET_KEY={Adicione a key}

@@ -1,4 +1,4 @@
-spring.application.name=${APP_NAME}
+spring.application.name=${AUTH_SERVICE}
 
 server.servlet.context-path=${CONTEXT_PATH}
 server.port=8086
@@ -14,11 +14,11 @@ cors.originPatterns=${CORS_ORIGIN}
 security.jwt.token.secret-key=${SECRET_KEY}
 security.jwt.token.expire-length=${EXPIRE_LENGTH}
 
-spring.datasource.url=${DS_URL}
 spring.datasource.driver-class-name=${DS_DRIVER_CLASS_NAME}
+spring.datasource.url=${DS_URL}
 spring.datasource.username=${DS_USERNAME}
 spring.datasource.password=${DS_PASSWORD}
-spring.datasource.hikari.schema=${DS_SCHEMA}
+
 spring.jpa.properties.hibernate.dialect=${JPA_DIALECT}
 
 spring.jpa.open-in-view=false
