@@ -11,7 +11,7 @@ services:
     environment:
       APP_NAME: auth-service
       CONTEXT_PATH: /auth-service/api
-      CORS_ORIGIN: http://192.168.*.*:*, http://www.granaflow.local:*, http://localhost:*
+      CORS_ORIGIN: "http://192.168.*.*:*,http://www.granaflow.local:*,http://localhost:*"
       DS_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
       DS_URL: jdbc:mysql://mysql:3306/auth_service?useTimezone=true&serverTimezone=UTC
       DS_USERNAME: root
