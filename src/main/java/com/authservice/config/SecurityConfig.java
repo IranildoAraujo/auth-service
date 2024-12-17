@@ -1,6 +1,7 @@
 package com.authservice.config;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.authservice.jwt.JwtTokenFilter;
 import com.authservice.jwt.JwtTokenProvider;
@@ -74,8 +78,32 @@ public class SecurityConfig {
                         .requestMatchers("/auth-service/api/**").authenticated()
                         .requestMatchers("/users").denyAll()
                 )
-            .cors(cors -> {})
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .build();
         //@formatter:on
     }
+    
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+	    CorsConfiguration configuration = new CorsConfiguration();
+
+	    // Definir origens permitidas - substituir pelos domínios reais da sua aplicação
+		configuration.setAllowedOriginPatterns(List.of("http://192.168.*.*:*", "http://www.granaflow.local:*", "http://localhost:*"));
+	    
+	    // Métodos HTTP permitidos
+	    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH"));
+
+	    // Cabeçalhos permitidos
+	    configuration.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
+
+	    // Exposição de cabeçalhos específicos (caso necessário)
+	    configuration.setExposedHeaders(List.of("Authorization"));
+
+	    // Configuração para credenciais (se necessário, ex: cookies, autenticação baseada em sessão)
+	    configuration.setAllowCredentials(true);
+
+	    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	    source.registerCorsConfiguration("/**", configuration);
+	    return source;
+	}
 }
