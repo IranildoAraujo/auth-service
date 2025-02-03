@@ -7,20 +7,20 @@ networks:
 services:
   auth-service:
     build:
-      context: .  # Caminho relativo do diretório atual
+      context: .
     environment:
-      APP_NAME: auth-service
-      CONTEXT_PATH: /auth-service/api
-      CORS_ORIGIN: "http://192.168.*.*:*,http://www.granaflow.local:*,http://localhost:*"
-      DS_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
-      DS_URL: jdbc:mysql://mysql:3306/auth_service?useTimezone=true&serverTimezone=UTC
-      DS_USERNAME: root
-      DS_PASSWORD: root
-      EXPIRE_LENGTH: '3600000'
-      JPA_DIALECT: org.hibernate.dialect.MySQL57Dialect
-      PROFILES_ACTIVE: dev
-      SECRET_KEY: hc08sjjSnsqVYmtp/gfuQRMeQNXDRo6gkLWT50p8rbQ=
-      SPRINGDOC_PATHS: /auth-service/**,/auth/**,/api/**/v1/**
+      APP_NAME: ${APP_NAME}
+      CONTEXT_PATH: ${CONTEXT_PATH}
+      CORS_ORIGIN: ${CORS_ORIGIN}
+      DS_DRIVER_CLASS_NAME: ${DS_DRIVER_CLASS_NAME}
+      DS_URL: ${DS_URL}
+      DS_USERNAME: ${DS_USERNAME}
+      DS_PASSWORD: ${DS_PASSWORD}
+      EXPIRE_LENGTH: ${EXPIRE_LENGTH}
+      JPA_DIALECT: ${JPA_DIALECT}
+      PROFILES_ACTIVE: ${PROFILES_ACTIVE}
+      SECRET_KEY: ${SECRET_KEY}
+      SPRINGDOC_PATHS: ${SPRINGDOC_PATHS}
     networks:
       - app-network
     ports:
@@ -33,8 +33,8 @@ services:
   mysql:
     image: mysql:5.7
     environment:
-      MYSQL_DATABASE: auth_service
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     networks:
       - app-network
     ports:
