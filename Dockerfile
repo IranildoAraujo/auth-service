@@ -1,37 +1,42 @@
-# Etapa 1: Build da aplicação
-FROM eclipse-temurin:17-jdk as builder
-
-# Diretório de trabalho dentro do container
+FROM maven:3.9.5-eclipse-temurin-17 AS builder
 WORKDIR /app
 
-# Copiar o código da aplicação
-COPY target/auth-service-0.0.1-SNAPSHOT.jar app.jar
+COPY pom.xml .
 
-# Etapa 2: Criação da imagem final
-FROM eclipse-temurin:17-jre
+COPY ./src ./src
 
-# Diretório de trabalho dentro do container
+RUN mvn dependency:go-offline
+
+RUN mvn clean install -DskipTests
+
+FROM eclipse-temurin:17-jdk-jammy
 WORKDIR /app
+COPY --from=builder /app/target/*.jar app.jar
 
-# Copiar o JAR gerado
-COPY --from=builder /app/app.jar app.jar
+ARG APP_NAME
+ARG CONTEXT_PATH
+ARG CORS_ORIGIN
+ARG DS_DRIVER_CLASS_NAME
+ARG DS_URL
+ARG DS_USERNAME
+ARG DS_PASSWORD
+ARG EXPIRE_LENGTH
+ARG JPA_DIALECT
+ARG PROFILES_ACTIVE
+ARG SECRET_KEY
+ARG SPRINGDOC_PATHS
 
-# Definir variáveis de ambiente como opcionais para serem configuradas no runtime
-ENV APP_NAME=auth-service \
-    CONTEXT_PATH=/auth-service/api \
-    CORS_ORIGIN=http://localhost:3000,http://localhost:8080,https://iran.com.br \
-    DS_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver \
-    DS_URL=jdbc:mysql://mysql:3306/auth_service?useTimezone=true&serverTimezone=UTC \
-    DS_USERNAME=root \
-    DS_PASSWORD=root \
-    EXPIRE_LENGTH=3600000 \
-    JPA_DIALECT=org.hibernate.dialect.MySQL57Dialect \
-    PROFILES_ACTIVE=dev \
-    SECRET_KEY=hc08sjjSnsqVYmtp/gfuQRMeQNXDRo6gkLWT50p8rbQ= \
-    SPRINGDOC_PATHS=/auth-service/**,/auth/**,/api/**/v1/**
+ENV APP_NAME=${APP_NAME} \
+    CONTEXT_PATH=${CONTEXT_PATH} \
+    CORS_ORIGIN=${CORS_ORIGIN} \
+    DS_DRIVER_CLASS_NAME=${DS_DRIVER_CLASS_NAME} \
+    DS_URL=${DS_URL} \
+    DS_USERNAME=${DS_USERNAME} \
+    DS_PASSWORD=${DS_PASSWORD} \
+    EXPIRE_LENGTH=${EXPIRE_LENGTH} \
+    JPA_DIALECT=${JPA_DIALECT} \
+    PROFILES_ACTIVE=${PROFILES_ACTIVE} \
+    SECRET_KEY=${SECRET_KEY} \
+    SPRINGDOC_PATHS=${SPRINGDOC_PATHS}
 
-# Expor a porta 8086
-EXPOSE 8086
-
-# Comando para rodar a aplicação
 ENTRYPOINT ["java", "-jar", "app.jar"]
